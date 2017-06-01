@@ -1,0 +1,16 @@
+{
+  "name": "redux-store-filler",
+  "version": "0.1.0",
+  "description": "Redux middleware to construct objects from flat data in store.",
+  "main": "src/index.js",
+  "author": {
+    "name": "George Komarov",
+    "email": "geoolekom@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "react-addons-update": "^15.5.2",
+    "redux-api-middleware": "^1.0.3"
+  }
+}
