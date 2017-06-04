@@ -5,22 +5,26 @@
 import {initGet} from './api';
 import {initResolve} from './resolve';
 import {initMiddleware} from './middleware';
-import {initReducer} from './reducer';
+import {initEntitiesReducer, initTimestampReducer} from './reducer';
+
+const getSuccessActionTypes = (api) => {
+    let actionTypes = {};
+    for (let key in api) {
+        actionTypes[api[key].types[1]] = key;
+    }
+    return actionTypes;
+};
 
 export const configureMiddleware = (config) => {
     const get = initGet(config.api);
-    const resolve = initResolve(config.schema);
-    let actionTypes = {};
-    for (let key in config.api) {
-        actionTypes[config.api[key].types[1]] = key;
-    }
-    return initMiddleware(actionTypes, resolve, get);
+    const resolve = initResolve(config.schema, config.lifetime);
+    return initMiddleware(getSuccessActionTypes(config.api), resolve, get);
 };
 
-export const configureReducer = (config) => {
-    let actionTypes = {};
-    for (let key in config.api) {
-        actionTypes[config.api[key].types[1]] = key;
-    }
-    return initReducer(actionTypes, config.schema);
+export const configureEntitiesReducer = (config) => {
+    return initEntitiesReducer(getSuccessActionTypes(config.api), config.schema);
+};
+
+export const configureTimestampReducer = (config) => {
+    return initTimestampReducer(getSuccessActionTypes(config.api), config.lifetime);
 };

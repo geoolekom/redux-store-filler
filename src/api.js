@@ -23,14 +23,12 @@ export const objectToQuery = (params) => {
     return `?${array.join('&')}`;
 };
 
-export const initGet = (api) => {
-    return (entity, params) => ({
-        [CALL_API]: {
-            endpoint: `${api[entity].endpoint}${objectToQuery(params)}`,
-            method: 'GET',
-            types: api[entity].types,
-            credentials: 'same-origin',
-            headers: api[entity].headers || {}
-        }
-    });
-};
+export const initGet = (api) => (entity, params) => ({
+    [CALL_API]: {
+        endpoint: `${api[entity].endpoint}${objectToQuery(params)}`,
+        method: 'GET',
+        types: api[entity].types,
+        credentials: 'same-origin',
+        headers: api[entity].headers || {}
+    }
+});
