@@ -18,7 +18,7 @@ const getSuccessActionTypes = (api) => {
 export const configureMiddleware = (config) => {
     const get = initGet(config.api);
     const resolve = initResolve(config.schema, config.lifetime);
-    return initMiddleware(getSuccessActionTypes(config.api), resolve, get);
+    return initMiddleware(getSuccessActionTypes(config.api), config.schema, resolve, get);
 };
 
 export const configureEntitiesReducer = (config) => {

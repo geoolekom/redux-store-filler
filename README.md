@@ -10,9 +10,17 @@ $ npm install redux-store-filler --save-dev
 
 Use it with standard Redux store. For more information, consult the [Redux documentation](http://redux.js.org).
 
+### Description
+
+`redux-store-filler` allows you to forget about retrieving data via API at all. 
+You just need to write config and receive data - asynchronously and entirely.
+
+`redux-store-filler` will retrieve data via API, normalize it, put it in Redux store and follow foreign keys if necessary.
+If data is already present in store, it will call API if only it's outdated.
+
 ### Simple example of usage
 
-1. Add config of your entities schema:
+1. Add config of your entities schema - each object should contain foreign keys to follow:
 
     ```js
     const schema = {
