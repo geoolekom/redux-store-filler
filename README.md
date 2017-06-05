@@ -61,16 +61,25 @@ If data is already present in store, it will call API if only it's outdated.
         lifetime
     };
     ```
-4. Create reducer and middleware using this config. 
+4. Create reducers, action creator and middleware using this config. 
 
     ```js
     import {config} from './config';
-    import {configureMiddleware} from 'redux-store-filler';
+    import {configureMiddleware, configureActionCreator} from 'redux-store-filler';
     import {configureEntitiesReducer, configureTimestampReducer} from 'redux-store-filler';
     
     const entitiesReducer = configureEntitiesReducer(config);
     const timestampReducer = configureTimestampReducer(config);
     const middleware = configureMiddleware(config);
+    const get = configureActionCreator(config);
     ```
-5. Use it in your Redux application.
+5. Use it in your application. 
+In React, for example, you put middleware and reducers in place and bind action creator.
+Then you can call it and get data, for example, in your React component:
+
+    ```js
+    componentDidMount = () => {
+       this.props.get("users", {id: [111, 122, 4]})
+    }
+    ```
     

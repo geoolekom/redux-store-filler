@@ -13,14 +13,18 @@ export const convertConfigToNormalizrSchema = (configSchema) => {
     for (let key in configSchema) {
         let counter = 0;
         for (let innerKey in configSchema[key]) {
-            if (!normalizrSchema.hasOwnProperty(configSchema[key][innerKey])) {
+            let innerKeyEntity = configSchema[key][innerKey];
+            let normalizrEntity;
+            if (innerKeyEntity instanceof Array) {
+                innerKeyEntity = innerKeyEntity[0];
+                normalizrEntity = [ normalizrSchema[innerKeyEntity] ];
+            } else {
+                normalizrEntity = normalizrSchema[innerKeyEntity];
+            }
+            if (!normalizrSchema.hasOwnProperty(innerKeyEntity)) {
                 counter ++;
             } else {
-                if (configSchema[key][innerKey] instanceof Array) {
-                    normalizrSchema[key].define({[innerKey]: [ normalizrSchema[configSchema[key][innerKey][0]] ]});
-                } else {
-                    normalizrSchema[key].define({[innerKey]: normalizrSchema[configSchema[key][innerKey]]});
-                }
+                normalizrSchema[key].define({[innerKey]: normalizrEntity});
             }
         }
         if (counter) {

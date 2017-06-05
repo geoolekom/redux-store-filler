@@ -16,15 +16,26 @@ const getSuccessActionTypes = (api) => {
 };
 
 export const configureMiddleware = (config) => {
-    const get = initGet(config.api);
-    const resolve = initResolve(config.schema, config.lifetime);
-    return initMiddleware(getSuccessActionTypes(config.api), config.schema, resolve, get);
+    const {schema, lifetime, api} = config;
+    const get = initGet(api);
+    const resolve = initResolve(schema, lifetime);
+    const actionTypes = getSuccessActionTypes(api);
+    return initMiddleware(actionTypes, config.schema, resolve, get);
 };
 
 export const configureEntitiesReducer = (config) => {
-    return initEntitiesReducer(getSuccessActionTypes(config.api), config.schema);
+    const {schema, api} = config;
+    const actionTypes = getSuccessActionTypes(api);
+    return initEntitiesReducer(actionTypes, schema);
 };
 
 export const configureTimestampReducer = (config) => {
-    return initTimestampReducer(getSuccessActionTypes(config.api), config.lifetime);
+    const {api, lifetime} = config;
+    const actionTypes = getSuccessActionTypes(api);
+    return initTimestampReducer(actionTypes, lifetime);
+};
+
+export const configureActionCreator = (config) => {
+    const {api} = config;
+    return initGet(api);
 };

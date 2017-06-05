@@ -1,6 +1,6 @@
 {
   "name": "redux-store-filler",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "repository": "geoolekom/redux-store-filler",
   "homepage": "https://github.com/geoolekom/redux-store-filler",
   "description": "Redux middleware to get only actual and necceccary data via API and store it using redux.",

@@ -5,11 +5,14 @@
 import { CALL_API } from "redux-api-middleware";
 
 export const objectToQuery = (params) => {
-    if (!params) {
+    if (!params || params === {}) {
         return '';
     }
     let array = [];
     for (let key in params) {
+        if (!(params[key] instanceof Array)) {
+
+        }
         if (params[key] instanceof Array) {
             if (params[key].length > 0) {
                 for (let val of params[key]) {
