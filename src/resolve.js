@@ -22,7 +22,7 @@ export const initResolve = (schema, lifetime) => (type, state, receivedEntities)
                 const present = state.entities.hasOwnProperty(keyType) && state.entities[keyType].hasOwnProperty(keyId);
                 const received = receivedEntities.hasOwnProperty(keyType) && receivedEntities[keyType].hasOwnProperty(keyId);
                 const relevant = present && !!lifetime ? state.timestamp[keyType][keyId] + lifetime[keyType] > Date.now() : true;
-                if (!present && !received || !relevant) {
+                if (!(received || (present && relevant)) && absentEntities[keyId].indexOf(keyId) === -1) {
                     absentEntities[keyType].push(keyId);
                 }
             }
